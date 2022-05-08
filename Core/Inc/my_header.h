@@ -1,13 +1,12 @@
 #ifndef _MY_HEADER_H_
 #define _MY_HEADER_H_
 
-#include "control.h"
-#include "gyro.h"
-#include "encoder.h"
-#include "ir_sensor.h"
-#include "fan_motor.h"
-#include "flash_memory.h"
-#include "battery.h"
-#include "function.h"
+#include "hardware/led.hpp"
+#include "hardware/motor.hpp"
+#include "hardware/encoder.hpp"
+#include "hardware/imu.hpp"
+#include "controller.hpp"
+#include "odometory.hpp"
+#include "pid_controller.hpp"
 
 #endif // _MY_HEADER_H_
