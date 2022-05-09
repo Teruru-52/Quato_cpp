@@ -12,14 +12,16 @@ public:
 
     void Update();
 
+    float v;
+    float omega;
+    static float x = 0;
+    static float y = 0;
+    float theta;
+
 private:
     hardware::Encoder encoder;
     hardware::IMU imu;
 
-    float v;
-    float omega;
-    float x;
-    float y;
-    float theta;
+    float sampling_period; // [s]
 };
 #endif //  ODOMETORY_HPP_
