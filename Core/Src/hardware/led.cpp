@@ -42,7 +42,7 @@ namespace hardware
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
     }
 
-    void LED::on_full()
+    void LED::on_all()
     {
         on_side_left();
         on_front_left();
@@ -50,7 +50,7 @@ namespace hardware
         on_front_right();
     }
 
-    void LED::off_full()
+    void LED::off_all()
     {
         off_side_left();
         off_front_left();
