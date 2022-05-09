@@ -12,7 +12,7 @@ namespace hardware
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
     }
 
-    void LED : on_side_right()
+    void LED::on_side_right()
     {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
     }
@@ -32,7 +32,7 @@ namespace hardware
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
     }
 
-    void LED : off_side_right()
+    void LED::off_side_right()
     {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
     }
