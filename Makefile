@@ -61,12 +61,11 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
 Core/Src/system_stm32f4xx.c \
 Core/Src/syscalls.c \
-Core/Src/hardware/led.cpp \
-# $(wildcard Core/Src/hardware/*.cpp) \
 
 # CPP sources
 CPP_SOURCES = \
 $(wildcard Core/Src/*.cpp) \
+$(wildcard Core/Src/hardware/*.cpp) \
 
 # ASM sources
 ASM_SOURCES =  \
@@ -136,8 +135,8 @@ C_INCLUDES =  \
 # C++ includes
 CPP_INCLUDES = $(C_INCLUDES)
 CPP_INCLUDES += \
-# -ICore/Inc/hardware/led.hpp \
-# $(wildcard Core/Inc/*.hpp) \
+$(wildcard Core/Inc/*.hpp) \
+$(wildcard Core/Inc/hardware/*.hpp) \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
