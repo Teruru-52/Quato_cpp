@@ -53,6 +53,6 @@ namespace hardware
 
     float Encoder::GetVelocity()
     {
-        return (GetAngularVelocity(pulse_left) + GetAngularVelocity(pulse_right)) / 2.0;
+        return (GetAngularVelocity(pulse_left) + GetAngularVelocity(pulse_right)) * tire_radius / 2.0;
     }
 } // namespace hardware
