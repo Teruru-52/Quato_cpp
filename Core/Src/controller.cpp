@@ -5,19 +5,23 @@ Controller::Controller(float control_period, float sampling_period)
       odom(sampling_period, 0.0125f, 16.4),
       control_period(control_period),
       pid_angle(2.0, 2.0, 0.05, 0.0, control_period),
-      pid_rotational_velocity(1.59, 60.0, -0.00213, 0.0, control_period),
-      pid_linear_velocity(19.72, 52.0, 1.548, 0.0, control_period) {}
+      pid_rotational_vel(1.59, 60.0, -0.00213, 0.0, control_period),
+      pid_linear_vel(19.72, 52.0, 1.548, 0.0, control_period) {}
 
-void Controller::MotorTest()
+void Controller::Update()
 {
-    motor.Drive(1.5, 1.5); // voltage [V]
+    odom.Update();
 }
 
 void Controller::PartyTrick()
 {
-    odom.Update();
-    u_w = pid_angle(-odom.GetAngle());
+    u_w = pid_angle(-odom.theta);
     v_left = -u_w;
     v_right = u_w;
     motor.Drive(v_left, v_right);
+}
+
+void Controller::MotorTest()
+{
+    motor.Drive(1.5, 1.5); // voltage [V]
 }

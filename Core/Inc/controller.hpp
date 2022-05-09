@@ -11,8 +11,9 @@ class Controller
 public:
     Controller(float control_period, float sampling_period);
 
-    void MotorTest();
+    void Update();
     void PartyTrick();
+    void MotorTest();
 
 private:
     hardware::Motor motor;
