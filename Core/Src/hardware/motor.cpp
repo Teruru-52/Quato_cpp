@@ -1,4 +1,4 @@
-#include "hardware/motor.hpp"
+#include "hardware/motor.h"
 
 namespace hardware
 {
@@ -7,7 +7,8 @@ namespace hardware
 
     int Motor::GetDuty(float input_vol)
     {
-        return max_input * input_vol / bat_vol;
+        // return max_input * input_vol / battery.GetBatteryVoltage();
+        return max_input * input_vol / 7.4;
     }
 
     void Motor::Drive(float v_left, float v_right)
@@ -18,12 +19,12 @@ namespace hardware
         if (duty_left > max_input)
             duty_left = max_input;
         else if (duty_left < -max_input)
-            duty_left - max_input;
+            duty_left = max_input;
 
         if (duty_right > max_input)
-            duty_right = max_input;
+            duty_right = -max_input;
         else if (duty_right < -max_input)
-            duty_right - max_input;
+            duty_right = -max_input;
 
         if (duty_left > 0)
         {

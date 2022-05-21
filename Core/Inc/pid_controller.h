@@ -14,7 +14,7 @@ public:
 
 private:
     float control_period;
-    static float error_sum = 0;
+    float error_sum;
 };
 
 class Differentiator
@@ -28,8 +28,8 @@ private:
     float tf;
     float control_period;
     float coeff;
-    static float pre_error = 0;
-    static float pre_deriv = 0;
+    float pre_error;
+    float pre_deriv;
 };
 
 class PID

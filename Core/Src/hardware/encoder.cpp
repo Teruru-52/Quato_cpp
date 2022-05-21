@@ -1,4 +1,4 @@
-#include "hardware/encoder.hpp"
+#include "hardware/encoder.h"
 
 #include <cmath>
 
@@ -48,7 +48,7 @@ namespace hardware
 
     float Encoder::GetAngularVelocity(int16_t pulse)
     {
-        return pulse * (2.0 * pi / ppr) * gear_ratio / sampling_period;
+        return pulse * (2.0 * M_PI / ppr) * gear_ratio / sampling_period;
     }
 
     float Encoder::GetVelocity()

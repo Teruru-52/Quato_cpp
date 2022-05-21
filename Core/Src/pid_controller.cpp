@@ -1,7 +1,8 @@
-#include "pid_controller.hpp"
+#include "pid_controller.h"
 
 Integrator::Integrator(float control_period)
-    : control_period(control_period) {}
+    : control_period(control_period),
+      error_sum(0) {}
 
 float Integrator::Update(float error)
 {
@@ -12,7 +13,9 @@ float Integrator::Update(float error)
 Differentiator::Differentiator(float tf, float control_period)
     : tf(tf),
       control_period(control_period),
-      coeff(tf / (tf + control_period)) {}
+      coeff(tf / (tf + control_period)),
+      pre_error(0),
+      pre_deriv(0) {}
 
 float Differentiator::Update(float error)
 {
@@ -31,5 +34,5 @@ PID::PID(float kp, float ki, float kd, float tf, float control_period)
 
 float PID::Update(float error)
 {
-    return kp * error + ki * integrator.Update(float error) + kd * differentiator.Update(float error);
+    return kp * error + ki * integrator.Update(error) + kd * differentiator.Update(error);
 }

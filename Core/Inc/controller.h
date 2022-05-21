@@ -2,16 +2,16 @@
 #define CONTROLLER_HPP_
 
 #include "main.h"
-#include "hardware/motor.hpp"
-#include "odometory.hpp"
-#include "pid_controller.hpp"
+#include "hardware/motor.h"
+#include "odometory.h"
+#include "pid_controller.h"
 
 class Controller
 {
 public:
     Controller(float control_period, float sampling_period);
 
-    void Update();
+    void OdometoryUpdate();
     void PartyTrick();
     void MotorTest();
 
@@ -19,10 +19,9 @@ private:
     hardware::Motor motor;
     Odometory odom;
     PID pid_angle;
-    PID pid_rotational_velocity;
-    PID pid linear_velocity;
+    PID pid_rotational_vel;
+    PID pid_linear_vel;
 
-    float control_period;
     float v_left;
     float v_right;
     float u_w;

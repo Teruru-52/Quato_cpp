@@ -1,4 +1,4 @@
-#include "hardware/ir_sensor.hpp"
+#include "hardware/ir_sensor.h"
 
 namespace hardware
 {

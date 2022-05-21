@@ -30,11 +30,10 @@
 /* USER CODE BEGIN Includes */
 #include "my_header.h"
 /* USER CODE END Includes */
-hardware::LED led;
-Controller controller;
+
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+// hardware::LED led2;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -131,10 +130,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    led.on_all();
-    HAL_Delay(1000);
-    led.off_all();
-    HL_Delay(1000);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

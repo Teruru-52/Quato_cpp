@@ -1,11 +1,13 @@
-#include "odometory.hpp"
+#include "odometory.h"
 
 #include <cmath>
 
 Odometory::Odometory(float sampling_period, float tire_radius, float gyro_factor)
-    : encoder(float sampling_period, float tire_radius),
-      imu(float sampling_period, float gyro_factor),
-      sampling_period(sampling_period) {}
+    : encoder(sampling_period, tire_radius),
+      imu(sampling_period, gyro_factor),
+      sampling_period(sampling_period),
+      x(0),
+      y(0) {}
 
 void Odometory::Update()
 {

@@ -1,8 +1,8 @@
-#include "hardware/speaker.hpp"
+#include "hardware/speaker.h"
 
 namespace hardware
 {
-    Speaker::Alert()
+    void Speaker::Alert()
     {
         __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 10);
         HAL_Delay(30);

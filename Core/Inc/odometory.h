@@ -2,11 +2,17 @@
 #define ODOMETORY_HPP_
 
 #include "main.h"
-#include "hardware/encoder.hpp"
-#include "hardware/imu.hpp"
+#include "hardware/encoder.h"
+#include "hardware/imu.h"
 
 class Odometory
 {
+private:
+    hardware::Encoder encoder;
+    hardware::IMU imu;
+
+    float sampling_period; // [s]
+
 public:
     Odometory(float sampling_period, float tire_radius, float gyro_factor);
 
@@ -14,14 +20,8 @@ public:
 
     float v;
     float omega;
-    static float x = 0;
-    static float y = 0;
+    float x;
+    float y;
     float theta;
-
-private:
-    hardware::Encoder encoder;
-    hardware::IMU imu;
-
-    float sampling_period; // [s]
 };
 #endif //  ODOMETORY_HPP_

@@ -2,30 +2,12 @@
 #define HARDWARE_IR_SENSOR_HPP_
 
 #include "main.h"
-#include "hardware/led.hpp"
+#include "hardware/led.h"
 
 namespace hardware
 {
     class IRsensor
     {
-    public:
-        IRsensor(uint32_t threshold);
-        // IRsensor(int sampling_count);
-
-        void on_front_led();
-        void on_side_led();
-        void off_front_led();
-        void off_side_led();
-        void on_all_led();
-        void off_all_led();
-
-        void UI_led_onoff();
-
-        void UpdateSideValue();
-        void UpdateFrontValue();
-        void Update();
-        float GetBatteryVoltage();
-
     private:
         LED led;
         const int sampling_count = 16;
@@ -45,6 +27,24 @@ namespace hardware
         uint32_t ir_sr;
 
         float bat_vol;
+
+    public:
+        IRsensor(uint32_t threshold);
+        // IRsensor(int sampling_count);
+
+        void on_front_led();
+        void on_side_led();
+        void off_front_led();
+        void off_side_led();
+        void on_all_led();
+        void off_all_led();
+
+        void UI_led_onoff();
+
+        void UpdateSideValue();
+        void UpdateFrontValue();
+        void Update();
+        float GetBatteryVoltage();
     };
 }
 #endif //  HARDWARE_IR_SENSOR_HPP_
