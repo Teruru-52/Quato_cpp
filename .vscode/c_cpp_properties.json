@@ -9,7 +9,7 @@
             ],
             "defines": [
                 "USE_HAL_DRIVER",
-                "STM32F303K8",
+                "STM32F405RG",
                 "__weak=__attribute__((weak))"
             ],
             "compilerPath": "C:\\tools\\gcc-arm-none-eabi-10-2020-q4-major\\bin\\arm-none-eabi-gcc",

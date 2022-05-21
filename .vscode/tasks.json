@@ -4,7 +4,7 @@
     "echoCommand": true,
     "tasks": [
         {
-            "label": "Quatro Build",
+            "label": "Quatro Cpp Build",
             "command": "make.exe",
             "args": [
                 "all",
