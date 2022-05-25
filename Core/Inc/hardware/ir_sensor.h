@@ -40,11 +40,14 @@ namespace hardware
         void off_all_led();
 
         void UI_led_onoff();
+        void UI_led_off();
 
         void UpdateSideValue();
         void UpdateFrontValue();
         void Update();
         float GetBatteryVoltage();
+        void BatteryCheck();
+        bool StartInitialize();
     };
 }
 #endif //  HARDWARE_IR_SENSOR_HPP_

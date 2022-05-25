@@ -5,23 +5,27 @@
 #include "hardware/encoder.h"
 #include "hardware/imu.h"
 
-class Odometory
+namespace undercarriage
 {
-private:
-    hardware::Encoder encoder;
-    hardware::IMU imu;
+    class Odometory
+    {
+    private:
+        hardware::Encoder encoder;
+        hardware::IMU imu;
 
-    float sampling_period; // [s]
+        float sampling_period; // [s]
 
-public:
-    Odometory(float sampling_period, float tire_radius, float gyro_factor);
+    public:
+        Odometory(float sampling_period, float tire_radius, float gyro_factor);
 
-    void Update();
+        void Initialize();
+        void Update();
 
-    float v;
-    float omega;
-    float x;
-    float y;
-    float theta;
-};
+        float v;
+        float omega;
+        float x;
+        float y;
+        float theta;
+    };
+} //  namespace undercarriage
 #endif //  ODOMETORY_HPP_

@@ -60,6 +60,14 @@ namespace hardware
             led.off_side_right();
     }
 
+    void IRsensor::UI_led_off()
+    {
+        led.off_front_left();
+        led.off_front_right();
+        led.off_side_left();
+        led.off_side_right();
+    }
+
     void IRsensor::UpdateSideValue()
     {
         HAL_ADC_Start_DMA(&hadc2, (uint32_t *)dma_b, 2);
@@ -91,7 +99,7 @@ namespace hardware
         ir_fl = dma_f[0];
         ir_fr = dma_f[1];
 
-        bat_vol = (float)dma_f[2] * 3.3 / 4096 * 3;
+        bat_vol = (float)dma_f[2] * 3.3 / 4096.0 * 3.0;
     }
 
     void IRsensor::Update()
@@ -124,5 +132,34 @@ namespace hardware
     float IRsensor::GetBatteryVoltage()
     {
         return bat_vol;
+    }
+
+    void IRsensor::BatteryCheck()
+    {
+        UpdateFrontValue();
+        if (bat_vol > 7.0)
+        {
+            led.on_side_right();
+        }
+        if (bat_vol > 6.0)
+        {
+            led.on_front_right();
+        }
+        if (bat_vol > 5.0)
+        {
+            led.on_front_left();
+        }
+        if (bat_vol > 4.0)
+        {
+            led.on_side_left();
+        }
+    }
+
+    bool IRsensor::StartInitialize()
+    {
+        if (ir_fl > 2700 && ir_fr > 2700)
+            return true;
+        else
+            return false;
     }
 }

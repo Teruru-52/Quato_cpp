@@ -33,7 +33,11 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-// hardware::LED led2;
+hardware::LED led;
+hardware::IRsensor irsensors(2300);
+hardware::Speaker speaker;
+undercarriage::Odometory odom(0.001, 0.0125, 16.4);
+undercarriage::Controller controller(0.001);
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -59,12 +63,56 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-// void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-// {
-//   if (htim == &htim1) //割込み16kHz
-//   {
-//   }
-// }
+char mode = 'i';
+char initialization = 'i';
+char slalom = 's';
+char translation = 't';
+char pivot_turn = 'p';
+char mode_select = 'm';
+char stop_movement = 'o';
+
+int cnt16kHz = 0;
+int cnt1kHz = 0;
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if (mode != initialization)
+  {
+    if (htim == &htim1) //割込み16kHz
+    {
+      irsensors.UpdateSideValue();
+      irsensors.UpdateFrontValue();
+
+      cnt16kHz = (cnt16kHz + 1) % 16;
+
+      if (cnt16kHz == 0) //割込み1kHz
+      {
+        cnt1kHz = (cnt1kHz + 1) % 1000;
+        irsensors.Update();
+        // odom.Update();
+
+        if (cnt1kHz % 200 == 0)
+        {
+          led.on_back_right();
+        }
+        else
+          led.off_back_right();
+
+        // controller.MotorTest();
+
+        // else if(mode == slalom){
+
+        // }
+        // else if(mode == translation){
+
+        // }
+        // else if(mode == pivot_turn){
+
+        // }
+      }
+    }
+  }
+}
 /* USER CODE END 0 */
 
 /**
@@ -123,6 +171,9 @@ int main(void)
   HAL_TIM_PWM_Start(&htim11, TIM_CHANNEL_1);
 
   setbuf(stdout, NULL);
+  speaker.Beep();
+  irsensors.BatteryCheck();
+  irsensors.on_all_led();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -132,6 +183,18 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    // led.on_all();
+    if (mode == initialization)
+    {
+      irsensors.UpdateFrontValue();
+      if (irsensors.StartInitialize())
+      {
+        speaker.Beep();
+        odom.Initialize();
+        speaker.Beep();
+        mode = 's'; // slalom
+      }
+    }
   }
   /* USER CODE END 3 */
 }

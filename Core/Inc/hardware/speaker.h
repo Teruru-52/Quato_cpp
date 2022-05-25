@@ -8,7 +8,7 @@ namespace hardware
     class Speaker
     {
     public:
-        void Alert();
+        void Beep();
     };
 } // namespace hardware
 

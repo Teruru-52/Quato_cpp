@@ -2,6 +2,7 @@
 #define HARDWARE_IMU_HPP_
 
 #include "main.h"
+// #include <cmath>
 
 namespace hardware
 {
@@ -17,7 +18,7 @@ namespace hardware
         void CalcOffset();
         void Update();
         void UpdateGyro();
-        void UpdateAcc();
+        // void UpdateAcc();
         float GetAngle();
         float GetAngularVelocity();
 

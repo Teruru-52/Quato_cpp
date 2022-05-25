@@ -9,6 +9,6 @@ public:
     void GetTrajectoryIndex();
 
 private:
-    constexpr static float time = 0;
+    float time;
 };
 #endif //  TRAJECTORY_HPP_

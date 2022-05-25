@@ -48,18 +48,8 @@ namespace hardware
         while (who_am_i != 0x70)
         {
             who_am_i = read_byte(0x75);
-            if (who_am_i == 0x70)
-            {
-                printf("who_am_i = 0x%x\r\n", who_am_i);
-                break;
-            }
-            // error check
-            else
-            {
-                printf("who_am_i = 0x%x\r\n", who_am_i);
-                HAL_Delay(10);
-                // printf("gyro_error \r\n");
-            }
+            printf("who_am_i = 0x%x\r\n", who_am_i);
+            HAL_Delay(20);
         }
 
         HAL_Delay(50);
