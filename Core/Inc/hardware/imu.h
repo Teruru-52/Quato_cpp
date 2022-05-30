@@ -2,7 +2,6 @@
 #define HARDWARE_IMU_HPP_
 
 #include "main.h"
-// #include <cmath>
 
 namespace hardware
 {
