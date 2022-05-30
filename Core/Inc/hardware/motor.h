@@ -11,6 +11,7 @@ namespace hardware
     private:
         // IRsensor battery;
 
+        float bat_vol;
         int max_input;
         float duty_left;
         float duty_right;
@@ -18,6 +19,7 @@ namespace hardware
     public:
         Motor(int max_input);
 
+        void UpdateBatteryVoltage(float battery);
         int GetDuty(float input_vol);
         void Drive(float v_left, float v_right);
         void Brake();
