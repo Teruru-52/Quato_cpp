@@ -2,6 +2,7 @@
 #define HARDWARE_IR_SENSOR_HPP_
 
 #include "main.h"
+#include <vector>
 #include "hardware/led.h"
 
 namespace hardware
@@ -25,12 +26,12 @@ namespace hardware
         uint32_t ir_fr;
         uint32_t ir_sl;
         uint32_t ir_sr;
+        std::vector<uint32_t> ir_data;
 
         float bat_vol;
 
     public:
         IRsensor(uint32_t threshold);
-        // IRsensor(int sampling_count);
 
         void on_front_led();
         void on_side_led();
@@ -45,6 +46,7 @@ namespace hardware
         void UpdateSideValue();
         void UpdateFrontValue();
         void Update();
+        std::vector<uint32_t> GetIRSensorData();
         float GetBatteryVoltage();
         void BatteryCheck();
         bool StartInitialize();
