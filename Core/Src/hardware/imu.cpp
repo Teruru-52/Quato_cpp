@@ -16,9 +16,9 @@ namespace hardware
         tx_data[0] = reg | 0x80;
         tx_data[1] = 0x00; // dummy
 
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
-        HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, 2, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+        HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, 2, 10);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
         return rx_data[1];
     }
@@ -32,9 +32,9 @@ namespace hardware
         //   tx_data[0] = reg | 0x00;
         tx_data[1] = data; // write data
 
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET); // CSピン立ち下げ
-        HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, 2, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET); // CSピン立ち上げ
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET); // CSピン立ち下げ
+        HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, 2, 10);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET); // CSピン立ち上げ
     }
 
     void IMU::Initialize()
@@ -93,6 +93,13 @@ namespace hardware
 
         gyro_z = (float)(gz_raw / gyro_factor) * M_PI / 180.0f - offset_gz; // dps to deg/sec
         theta += gyro_z * sampling_period;
+
+        static int a = 0;
+        if (a % 200 == 0)
+        {
+            printf("%f\r\n", theta);
+        }
+        a++;
     }
 
     float IMU::GetAngle()
