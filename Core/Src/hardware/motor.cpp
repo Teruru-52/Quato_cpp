@@ -5,10 +5,15 @@ namespace hardware
     Motor::Motor(int max_input)
         : max_input(max_input) {}
 
+    void Motor::UpdateBatteryVoltage(float battery)
+    {
+        bat_vol = battery;
+    }
+
     int Motor::GetDuty(float input_vol)
     {
         // return max_input * input_vol / battery.GetBatteryVoltage();
-        return max_input * input_vol / 7.4;
+        return max_input * input_vol / bat_vol;
     }
 
     void Motor::Drive(float v_left, float v_right)
