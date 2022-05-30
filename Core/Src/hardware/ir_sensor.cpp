@@ -129,6 +129,15 @@ namespace hardware
         UI_led_onoff();
     }
 
+    std::vector<uint32_t> IRsensor::GetIRSensorData()
+    {
+        ir_data[0] = ir_fl;
+        ir_data[1] = ir_fr;
+        ir_data[2] = ir_sl;
+        ir_data[3] = ir_sr;
+        return ir_data;
+    }
+
     float IRsensor::GetBatteryVoltage()
     {
         return bat_vol;
