@@ -26,6 +26,8 @@
 #include "usart.h"
 #include "gpio.h"
 
+#include <vector>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "my_header.h"
@@ -36,7 +38,7 @@
 hardware::LED led;
 hardware::IRsensor irsensors(2300);
 hardware::Speaker speaker;
-undercarriage::Odometory odom(0.001, 0.0125, 16.4);
+undercarriage::Odometory odom(0.001);
 undercarriage::Controller controller(0.001);
 /* USER CODE END PTD */
 
@@ -74,6 +76,10 @@ char stop_movement = 'o';
 int cnt16kHz = 0;
 int cnt1kHz = 0;
 
+std::vector<float> cur_p;
+std::vector<float> cur_v;
+std::vector<uint32_t> ir_data;
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if (mode != initialization)
@@ -88,10 +94,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
       if (cnt16kHz == 0) //割込み1kHz
       {
         cnt1kHz = (cnt1kHz + 1) % 1000;
+        controller.UpdateBatteryVoltage(irsensors.GetBatteryVoltage());
         irsensors.Update();
-        // odom.Update();
+        ir_data = irsensors.GetIRSensorData();
+        odom.Update();
+        cur_p = odom.GetPosition();
+        cur_v = odom.GetVelocity();
 
-        if (cnt1kHz % 200 == 0)
+        controller.PartyTrick(cur_p, cur_v);
+
+        if (cnt1kHz % 1000 == 0)
         {
           led.on_back_right();
         }
@@ -192,7 +204,7 @@ int main(void)
         speaker.Beep();
         odom.Initialize();
         speaker.Beep();
-        mode = 's'; // slalom
+        mode = slalom; // slalom
       }
     }
   }
