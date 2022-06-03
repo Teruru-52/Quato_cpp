@@ -101,7 +101,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         cur_p = odom.GetPosition();
         cur_v = odom.GetVelocity();
 
-        controller.PartyTrick(cur_p, cur_v);
+        // controller.PartyTrick(cur_p, cur_v);
 
         if (cnt1kHz % 1000 == 0)
         {
